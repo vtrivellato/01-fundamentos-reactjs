@@ -6,25 +6,27 @@ import './App.modules.css'
 
 import './global.css'
 
+import posts from './posts.json'
+
 export function App() {
 	return (
 		<div>
 			<Header />
 			
 			<div className="wrapper">
-				<Sidebar 
-
-				/>
+				<Sidebar />
 				
 				<main>
-					<Post 
-						author="Fulano"
-						authorInfo="Fullstack developer"
-					/>
-					<Post 
-						author="Ciclano"
-						authorInfo="Frontend developer"
-					/>
+					{posts.map(post => {
+						return (
+							<Post 
+								key={post.id}
+								author={post.author}	
+								publishedAt={post.publishedAt}	
+								content={post.content}
+							/>
+						)
+					})}
 				</main>
 			</div>
 		</div>

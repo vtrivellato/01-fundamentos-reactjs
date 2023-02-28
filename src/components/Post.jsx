@@ -1,38 +1,98 @@
+import { useState } from 'react'
+
 import { Avatar } from './Avatar'
 import { Comment } from './Comment'
 
 import styles from './Post.module.css'
 
-export function Post(props) {
+export function Post({ author, publishedAt, content }) {
+    const publishDateFormatted = new Intl.DateTimeFormat('pt-BR', {
+        day: "2-digit", 
+        month: "long", 
+        hour: "2-digit", 
+        minute: "2-digit"
+    }).format(new Date(publishedAt))
+
+    const [comments, setComments] = useState([
+        {
+            id: 1, 
+            content: 'Post muito bacana'
+        }        
+    ])
+    const [newComment, setNewComment] = useState('')
+
+    const handleNewCommentChange = () => {
+        setNewComment(event.target.value);
+    }
+
+    const handleCreateNewComment = () => {
+        event.preventDefault();
+
+        setComments([...comments, 
+            {
+                id: comments.length + 1, 
+                content: newComment
+            }
+        ])
+        setNewComment('')
+    }
+
+    const handleCommentDelete = (id) => {
+        const commentListExcludingById = comments.filter(comment => {
+            return comment.id !== id
+        })
+
+        setComments(commentListExcludingById)
+    }
+
     return (
         <article className={styles.post}>
             <header>
                 <div className={styles.author}>
-                    <Avatar src="https://github.com/maykbrito.png" />
+                    <Avatar src={author.avatarUrl} />
 
                     <div className={styles.authorInfo}>
-                        <strong>{props.author}</strong>
-                        <span>{props.authorInfo}</span>
+                        <strong>{author.name}</strong>
+                        <span>{author.role}</span>
                     </div>
                 </div>
 
-                <time title="21 de fevereiro às 16:53" dateTime="2022-02-21 16:53:57">Publicado há 1h</time>
+                <time 
+                    title="21 de fevereiro às 16:53" 
+                    dateTime="2022-02-21 16:53:57"
+                >
+                    {publishDateFormatted}
+                </time>
             </header>
 
             <div className={styles.content}>
-                <p>Fala galeraa 👋</p>
-                <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-                <p>👉{' '}<a href="">github.com/vtrivellato</a></p>
-                <p>
-                    <a href="">#novoprojeto</a>{' '}
-                    <a href="">#nlw</a>{' '}
-                    <a href="">#rocketseat</a>
-                </p>
+                {
+                    content.map(part => {
+                        switch (part.type) {
+                            case "paragraph":
+                                return <p key={Math.floor(Math.random() * 100)}>{part.content}</p>
+                            case "link":
+                                return (
+                                    <>
+                                        <a href="">{part.content}</a>
+                                        <span>&nbsp;</span>
+                                    </>
+                                )
+                            default:
+                                break;
+                        }
+                    })
+                }
             </div>
             
-            <form className={styles.commentForm}>
+            <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
                 <strong>Deixe seu feedback: </strong>
-                <textarea placeholder="Deixe um comentário" />
+                <textarea 
+                    name="comment" 
+                    placeholder="Deixe um comentário" 
+                    value={newComment}
+                    onChange={handleNewCommentChange}
+                />
 
                 <footer>
                     <button type="submit">Publicar</button>
@@ -40,9 +100,17 @@ export function Post(props) {
             </form>
 
             <div className={styles.commentList}>
-                <Comment />
-                <Comment />
-                <Comment />
+                {
+                    comments.map(comment => {
+                        return (
+                            <Comment 
+                                key={comment.id}
+                                content={comment.content} 
+                                onDelete={() => handleCommentDelete(comment.id)}
+                            />
+                        )
+                    })
+                }
             </div>
         </article>
     )

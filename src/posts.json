@@ -1,0 +1,95 @@
+[
+    {
+        "id": 1,
+        "author": {
+            "name": "Autor Teste 1",
+            "role": "Cargo autor 1", 
+            "avatarUrl": "https://github.com/vtrivellato.png"
+        },
+        "publishedAt": "2023-02-01T23:12:19-03:00",
+        "content": [
+            {
+                "type": "paragraph", 
+                "content": "Linha 1"
+            },
+            {
+                "type": "paragraph", 
+                "content": "Linha 2"
+            },
+            {
+                "type": "paragraph", 
+                "content": "Linha 3"
+            },
+            {
+                "type": "link", 
+                "content": "#programming"
+            },
+            {
+                "type": "link", 
+                "content": "#blablabla"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "author": {
+            "name": "Autor Teste 2",
+            "role": "Cargo autor 2", 
+            "avatarUrl": "https://github.com/diego3g.png"
+        },
+        "publishedAt": "2023-02-02T12:23:19-03:00",
+        "content": [
+            {
+                "type": "paragraph", 
+                "content": "Linha 1"
+            },
+            {
+                "type": "paragraph", 
+                "content": "Linha 2"
+            },
+            {
+                "type": "paragraph", 
+                "content": "Linha 3"
+            },
+            {
+                "type": "link", 
+                "content": "#programming"
+            },
+            {
+                "type": "link", 
+                "content": "#blablabla"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "author": {
+            "name": "Autor Teste 3",
+            "role": "Cargo autor 3", 
+            "avatarUrl": "https://github.com/maykbrito.png"
+        },
+        "publishedAt": "2023-02-04T19:12:23-03:00",
+        "content": [
+            {
+                "type": "paragraph", 
+                "content": "Linha 1"
+            },
+            {
+                "type": "paragraph", 
+                "content": "Linha 2"
+            },
+            {
+                "type": "paragraph", 
+                "content": "Linha 3"
+            },
+            {
+                "type": "link", 
+                "content": "#programming"
+            },
+            {
+                "type": "link", 
+                "content": "#blablabla"
+            }
+        ]
+    }
+]
