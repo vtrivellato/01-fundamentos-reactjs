@@ -1,20 +1,32 @@
+import React from 'react'
+
 import { Avatar } from '../Avatar/Avatar'
 import { Comment } from '../Comment/Comment'
 
+import { AuthorProps, CommentProps, ContentProps } from './interfaces';
+
 import styles from './Post.module.css'
+
 import { usePost } from './usePost'
 
-export function Post({ author, publishedAt, content }) {
+interface PostProps {
+    author: AuthorProps, 
+    publishedAt: Date, 
+    content: ContentProps[],
+    comments: CommentProps[]
+}
+
+export function Post({ author, publishedAt, content, comments }: PostProps) {
     const { 
         publishDateFormatted,
-		comments,
+		commentsList,
 		newComment,
 		handleNewCommentChange,
         handleCreateNewComment, 
         handleCommentDelete, 
         handleInvalidComment, 
         isNewCommentEmpty
-    } = usePost({ publishedAt });
+    } = usePost({ publishedAt, comments });
 
     return (
         <article className={styles.post}>
@@ -83,7 +95,7 @@ export function Post({ author, publishedAt, content }) {
 
             <div className={styles.commentList}>
                 {
-                    comments.map(comment => {
+                    commentsList.map(comment => {
                         return (
                             <Comment 
                                 key={comment.id}

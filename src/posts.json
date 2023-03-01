@@ -28,7 +28,11 @@
                 "type": "link", 
                 "content": "#blablabla"
             }
-        ]
+        ], 
+        "comments": [{
+            "id": 1, 
+            "content": "Post muito bacana"
+        }]
     },
     {
         "id": 2,
@@ -59,7 +63,11 @@
                 "type": "link", 
                 "content": "#blablabla"
             }
-        ]
+        ], 
+        "comments": [{
+            "id": 2, 
+            "content": "Parabéns"
+        }]
     },
     {
         "id": 3,
@@ -90,6 +98,10 @@
                 "type": "link", 
                 "content": "#blablabla"
             }
-        ]
+        ], 
+        "comments": [{
+            "id": 3, 
+            "content": "Continue assim"
+        }]
     }
 ]

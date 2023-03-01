@@ -1,33 +1,35 @@
 import { useState } from 'react'
 
-export function usePost({ publishedAt }) {
+import { CommentProps, ContentProps } from './interfaces'
+
+interface UsePostProps {
+    publishedAt: Date, 
+    comments: CommentProps[]
+}
+
+export function usePost({ publishedAt, comments }: UsePostProps) {
     const publishDateFormatted = new Intl.DateTimeFormat('pt-BR', {
         day: "2-digit", 
         month: "long", 
         hour: "2-digit", 
         minute: "2-digit"
     }).format(new Date(publishedAt))
-    
-    const [comments, setComments] = useState([
-        {
-            id: 1, 
-            content: 'Post muito bacana'
-        }        
-    ])
+
+    const [commentsList, setCommentsList] = useState<CommentProps[]>(comments)
     const [newComment, setNewComment] = useState('')
     
-    const handleNewCommentChange = () => {
+    const handleNewCommentChange = (event: any) => {
         event.target.setCustomValidity('')
     
         setNewComment(event.target.value);
     }
     
-    const handleCreateNewComment = () => {
+    const handleCreateNewComment = (event: any) => {
         event.preventDefault();
     
-        setComments([...comments, 
+        setCommentsList([...commentsList, 
             {
-                id: comments.length + 1, 
+                id: commentsList.length + 1, 
                 content: newComment
             }
         ])
@@ -35,15 +37,15 @@ export function usePost({ publishedAt }) {
         setNewComment('')
     }
     
-    const handleCommentDelete = (id) => {
-        const commentListExcludingById = comments.filter(comment => {
+    const handleCommentDelete = (id: number) => {
+        const commentListExcludingById = commentsList.filter(comment => {
             return comment.id !== id
         })
     
-        setComments(commentListExcludingById)
+        setCommentsList(commentListExcludingById)
     }
     
-    const handleInvalidComment = () => {
+    const handleInvalidComment = (event: any) => {
         event.target.setCustomValidity('Esse campo é obrigatório')
     }
     
@@ -51,7 +53,7 @@ export function usePost({ publishedAt }) {
 
     return {
 		publishDateFormatted,
-		comments,
+		commentsList,
 		newComment,
 		handleNewCommentChange,
         handleCreateNewComment, 
