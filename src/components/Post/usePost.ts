@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react'
 
 import { CommentProps, ContentProps } from './interfaces'
 
@@ -18,13 +18,13 @@ export function usePost({ publishedAt, comments }: UsePostProps) {
     const [commentsList, setCommentsList] = useState<CommentProps[]>(comments)
     const [newComment, setNewComment] = useState('')
     
-    const handleNewCommentChange = (event: any) => {
+    const handleNewCommentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         event.target.setCustomValidity('')
     
         setNewComment(event.target.value);
     }
     
-    const handleCreateNewComment = (event: any) => {
+    const handleCreateNewComment = (event: FormEvent) => {
         event.preventDefault();
     
         setCommentsList([...commentsList, 
@@ -45,7 +45,7 @@ export function usePost({ publishedAt, comments }: UsePostProps) {
         setCommentsList(commentListExcludingById)
     }
     
-    const handleInvalidComment = (event: any) => {
+    const handleInvalidComment = (event: InvalidEvent<HTMLTextAreaElement>) => {
         event.target.setCustomValidity('Esse campo é obrigatório')
     }
     

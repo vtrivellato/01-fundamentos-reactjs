@@ -1,17 +1,16 @@
-import React from 'react'
+import React, { ImgHTMLAttributes } from 'react'
 
 import styles from './Avatar.module.css'
 
-interface AvatarProps {
-    borderless?: boolean,
-    src: string
+interface AvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
+    borderless?: boolean
 }
 
-export function Avatar({ borderless, src }: AvatarProps) {
+export function Avatar({ borderless, ...props }: AvatarProps) {
     return (
         <img 
             className={borderless ? styles.avatar : styles.avatarWithBorder} 
-            src={src} 
+            {...props} 
         />
     )
 }
